@@ -38,7 +38,6 @@ wget --no-check-certificate https://palevotracker.abuse.ch/blocklists.php?downlo
 echo "-----" >> botnetnodes.log
 echo "-----" >> botnetnodes.log
 
-
 #
 # Declare an array of our lists, so we can loop through them. The loop will make sure that only valid IP addresses 
 # are a part of our file. ONce they are validated, we will cat them into a larger file for use in other scripts.
@@ -50,7 +49,6 @@ do :
 	wc -l workinglist.csv >> botnetnodes.log
 	echo "-----" >> botnetnodes.log
 done
-
 
 # let's sort some things, and make sure we do not have any duplicates. Then we will move our file ready to be 
 # uploaded out of our working directory, then we will zip up our working directory, so we can save it for long 
@@ -65,7 +63,6 @@ mv bots.zip bots_$(date +%F).zip
 mv botnets.csv botnets_$(date +%F).csv
 mv botnetnodes.log botnetnodes_$(date +%F).log
 rm -rf botnetdir
-
 
 # EOS
 # EOF
