@@ -11,7 +11,6 @@
 # Commands used:
 # touch, echo, wget, cat, wc, grep, sort, uniq, zip, cp, mv, date
 
-
 # TO DO:
 # check the 5'th, 10'th and 11'th lists to see if they are back online.
 # At this tiem tehy are eitther blocking or have gone off line.
@@ -222,6 +221,7 @@ echo "-------" >> working.tor.list.log
 # Now, we need to grab all of our files, and zip them up for long term storage.
 # I am using zip, since that is more common on windows systems.
 zip csv-files.zip *.csv
+mv clean.tor:.list.csv tornodes.upload
 rm -rf *.csv
 zip list-files.zip *.list
 rm -rf *.list
@@ -233,7 +233,6 @@ rm -rf csv-files.zip
 rm -rf list-files.zip
 rm -rf working.tor.list.log
 # EOS
-
 
 
 # This copyright notice is included for using the emerging threats rule.
@@ -261,8 +260,5 @@ rm -rf working.tor.list.log
 #  USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
 #
 #
-
-
-
 
 # EOF
