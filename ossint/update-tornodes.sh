@@ -15,6 +15,8 @@
 # At this time they are either blocking or have gone off line.
 # the 11'th can tell I am a script, so will need to work around that.
 # 5: http://tornode.webatu.com/
+# 10: http://blog.bannasties.com/2013/04/ips-blocked-as-tor-exit-nodes/
+# 11: http://proxy.org/proxies_sorted2.shtml
 #
 # let's get started
 # create our working files and directories, and then move into there for the remainder of the script.
@@ -34,24 +36,42 @@ echo "-------" >> torlist.log
 # we have to do different sets of tasks on each file, as they format things differently.
 echo "Getting our first list" >> torlist.log
 echo "https://www.dan.me.uk/torlist/" >> torlist.log
-wget --no-check-certificate  https://www.dan.me.uk/torlist/ -O ukdan.list
+wget --no-check-certificate  "https://www.dan.me.uk/torlist/" -O ukdan.list
 echo "-------" >> torlist.log
 echo "getting our second list" >> torlist.log
 echo "http://torstatus.blutmagie.de/ip_list_all.php/Tor_ip_list_ALL.csv" >> torlist.log
-wget http://torstatus.blutmagie.de/ip_list_all.php/Tor_ip_list_ALL.csv -O german.list
+wget "http://torstatus.blutmagie.de/ip_list_all.php/Tor_ip_list_ALL.csv" -O german.list
 echo "-------" >> torlist.log
 echo "getting our third list" >> torlist.log
 echo "https://check.torproject.org/exit-addresses" >> torlist.log
-wget --no-check-certificate https://check.torproject.org/exit-addresses -O torsite.list
+wget --no-check-certificate "https://check.torproject.org/exit-addresses" -O torsite.list
 echo "-------" >> torlist.log
 echo "getting our fourth list" >> torlist.log
 echo "http://en.wikipedia.org/wiki/Category:Blocked_Tor_exit_nodes" >> torlist.log
-wget http://en.wikipedia.org/wiki/Category:Blocked_Tor_exit_nodes -O wikipedia.list
+wget "http://en.wikipedia.org/wiki/Category:Blocked_Tor_exit_nodes" -O wikipedia.list
 echo "-------" >> torlist.log
 echo "getting our fifth list" >> torlist.log
 echo "http://www.enn.lu/status/" >> torlist.log
-wget http://www.enn.lu/status/ -O ennlu.list
+wget "http://www.enn.lu/status/" -O ennlu.list
 echo "-------" >> torlist.log
+echo "getting the seventh list now" >> torlist.log
+echo "https://gitweb.torproject.org/tor.git/blob/HEAD:/src/or/config.c#l819" >> torlist.log
+wget --no-check-certificate "https://gitweb.torproject.org/tor.git/blob/HEAD:/src/or/config.c#l819" -O gist.list
+echo "-------" >> torlist.log
+echo "getting list number eight now" >> torlist.log
+echo "http://rules.emergingthreats.net/blockrules/emerging-tor.rules" >> torlist.log
+wget http://rules.emergingthreats.net/blockrules/emerging-tor.rules -O ethreats.list
+echo "-------" >> torlist.log
+echo "getting the ninth list now"
+echo "http://hqpeak.com/torexitlist/free/?format=json" >> torlist.log
+wget http://hqpeak.com/torexitlist/free/?format=json -O hqpeak.list
+echo "-------" >> torlist.log
+
+
+
+# some quick formatting
+echo "-----------------" >> torlist.log
+echo "-----------------" >> torlist.log
 
 # Batch 1: UKdan and German site
 # Let's start working with, manipulating our files.
@@ -60,146 +80,73 @@ echo "-------" >> torlist.log
 cat ukdan.list >> working.csv
 wc -l working.csv >> torlist.log
 echo "-------" >> torlist.log
-cat german-site-all.list >> working.csv
+cat german.list >> working.csv
 wc -l working.csv >> torlist.log
 echo "-------" >> torlist.log
 
 
-# Batch 2:
+# Batch 2: Tor, wikipedia, ennlu, Github, ethreats, hqpeak
 # This grouping of files, requires a bit more processing as the information downloaded, is not in a 
 # CSV file format, or contains other information that just an IP list. This next set of commands will
 # create an array of these lists, and do the processing we need to strip all non essential data out
 # of the files. We will use a FOR loop to go throgh our array.
-decalre -a torarray('torsite.list' 'wikipedia.list' 'ennlu.list'
-echo "-------" >> torlist.log
-echo "-------" >> torlist.log
-for list in "${torarray[@]}"
+torbatch2=('torsite.list' 'wikipedia.list' 'ennlu.list' 'gist.list' 'ethreats.list' 'hqpeak.list')
+echo "-----------------" >> torlist.log
+echo "-----------------" >> torlist.log
+for list in "${torbatch2[@]}"
 do :
 	echo "$list" >> torlist.log
 	grep -E -o '(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)' $list >> working.csv
 	wc -l working.csv >> torlist.log
 	echo "-----" >> torlist.log
 done
+echo "-----------------" >> torlist.log
+echo "-----------------" >> torlist.log
 
 
-# seventh list
-echo "getting the seventh list now" >> torlist.log
-echo "https://gitweb.torproject.org/tor.git/blob/HEAD:/src/or/config.c#l819" >> torlist.log
-echo "-------" >> torlist.log
-wget --no-check-certificate https://gitweb.torproject.org/tor.git/blob/HEAD:/src/or/config.c#l819 -O gist.list
-# This list includes other information besides IP addresses
-# this will clean up the file and only give us the IP addresses
-echo "removing non-IP address information from current file" >> torlist.log
-echo "-------" >> torlist.log
-grep -E -o '(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)' gist.list >> iponly-gist.list
-# This list gives some no valid nu,bers that pass the IP sniff test.
-# this next grep will clean out not routable IP addresses.
-echo "removing non-internet routable IP addresses." >> torlist.log
-echo "This will also remove any IP addres in the 0.0.0.0/8 range, as these are reservered for the IETF." >> torlist.log
-echo "-------" >> torlist.log
-grep -E -v '(^127\.0\.0\.1)|(^10\.)|(^172\.1[6-9]\.)|(^172\.2[0-9]\.)|(^172\.3[0-1]\.)|(^192\.168\.)|(^0.)' iponly-gist.list >> validated-iponly-gist.list
-cat validated-iponly-gist.list >> working.csv
-wc -l working.csv >> torlist.log
-echo "-------" >> torlist.log
-echo "-------" >> torlist.log
+# Our final set of processing is to go through our working list, and pull out any addresses, that are RFC 3330.
+# I am not grabbing all of those addresses. I am only grabbing a small portion of them, and making sure our list
+# is not corrupted by that.
+grep -E -v '(^127\.0\.0\.1)|(^10\.)|(^172\.1[6-9]\.)|(^172\.2[0-9]\.)|(^172\.3[0-1]\.)|(^192\.168\.)|(^0.)|(^169\.254\.)' working.csv >> validated.csv
+wc -l validated.csv >> torlist.log
+echo "-----------------" >> torlist.log
+echo "-----------------" >> torlist.log
 
 
-# eighth list
-# this one might have some copyright issues with it.
-# As a precaution the copyright is included at the bottom of this script.
-# please make sure to read and understand this copyright.
-echo "getting list number eight now" >> torlist.log
-echo "http://rules.emergingthreats.net/blockrules/emerging-tor.rules" >> torlist.log
-echo "-------" >> torlist.log
-wget http://rules.emergingthreats.net/blockrules/emerging-tor.rules -O emergingthreats.list
-# This list includes other information besides IP addresses
-# this will clean up the file and only give us the IP addresses
-echo "removing non-IP address information from current file" >> torlist.log
-echo "-------" >> torlist.log
-grep -E -o '(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)' emergingthreats.list >> iponly-emergingthreats.list
-cat iponly-emergingthreats.list >> working.csv
-wc -l working.csv >> torlist.log
-echo "-------" >> torlist.log
-echo "-------" >> torlist.log
-
-
-# ninth list
-echo "getting the ninth list now"
-echo "http://hqpeak.com/torexitlist/free/?format=json" >> torlist.log
-echo "-------" >> torlist.log
-wget http://hqpeak.com/torexitlist/free/?format=json -O hqpeak.list
-# This list includes other information besides IP addresses
-# this will clean up the file and only give us the IP addresses
-echo "removing non-IP address information from current file" >> torlist.log
-echo "-------" >> torlist.log
-grep -E -o '(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)' hqpeak.list >> iponly-hqpeak.list
-cat iponly-hqpeak.list >> working.csv
-wc -l working.csv >> torlist.log
-echo "-------" >> torlist.log
-echo "-------" >> torlist.log
-
-
-# tenth list
-# i think this site has blocked me for trying to pull this list too often.
-# for now it is not working.
-echo "getting our tenth list now"
-echo "http://blog.bannasties.com/2013/04/ips-blocked-as-tor-exit-nodes/" >> torlist.log
-echo "-------" >> torlist.log
-#wget http://blog.bannasties.com/2013/04/ips-blocked-as-tor-exit-nodes/ -O bannsitesblog.list
-# This list includes other information besides IP addresses
-# this will clean up the file and only give us the IP addresses
-#echo "removing non-IP address information from current file" >> torlist.log
-echo "-------" >> torlist.log
-#grep -E -o '(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)' bannsitesblog.list >> iponly-bannsitesblog.list
-#cat iponly-bannsitesblog.list >> working.csv
-#wc -l working.csv >> torlist.log
-echo "-------" >> torlist.log
-echo "-------" >> torlist.log
-
-
-# list number eleven
-echo "grabbing the final list now"
-echo "http://proxy.org/proxies_sorted2.shtml" >> torlist.log
-echo "-------" >> torlist.log
-echo "This list can tell I am a script and not a human, so for now it will be disabled" >> torlist.log
-#wget http://proxy.org/proxies_sorted2.shtml -O proxyorg.list
-#cat proxyorg.list >> working.csv
-#wc -l working.csv >> torlist.log
-echo "-------" >> torlist.log
-echo "-------" >> torlist.log
-
-
-
-# OK, at this point we need to start sorting our list adn removing any duplicates
+# We need to start sorting our list and removing any duplicates
 echo "Now, I am going to sort our list that we have been working on" >> torlist.log
-sort working.csv >> sorted.tor.list.csv
-echo "-------" >> torlist.log
+sort validated.csv >> sorted.csv
 echo "-------" >> torlist.log
 echo "Now, we will remove any duplicates in the list, using uniq." >> torlist.log
 echo "before removing duplicates.:" >> torlist.log
-wc -l sorted.tor.list.csv >> torlist.log
+wc -l sorted.csv >> torlist.log
 echo "-------" >> torlist.log
-echo "After pulling out dumplicates:" >> torlist.log
-uniq sorted.tor.list.csv >> clean.tor.list.csv
-wc -l clean.tor.list.csv >> torlist.log
-echo "-------" >> torlist.log
-echo "-------" >> torlist.log
+uniq sorted.csv >> clean.csv
+echo "After pulling out duplicates:" >> torlist.log
+wc -l clean.csv >> torlist.log
+echo "-----------------" >> torlist.log
+echo "-----------------" >> torlist.log
 
 
 # Now, we need to grab all of our files, and zip them up for long term storage.
 # I am using zip, since that is more common on windows systems.
 zip csv-files.zip *.csv
-mv clean.tor:.list.csv tornodes.upload
+mv clean.csv ../
 rm -rf *.csv
 zip list-files.zip *.list
 rm -rf *.list
+cp torlist.log ../
 # this will create our final zip file, and will date stamp the file.
 # this will help us go back and find when an IP was added to our lists.
-zip tor-nodes-$(date +%F).zip csv-files.zip list-files.zip torlist.log
-# clean up our remaining files
+zip tornodes-$(date +%F).zip csv-files.zip list-files.zip torlist.log
+cp tornodes-$(date +%F).zip ../
 rm -rf csv-files.zip
 rm -rf list-files.zip
 rm -rf torlist.log
+cd ../
+mv torlist.log tornodes-$(date +%F).log
+mv clean.csv tornodes-$(date +%F).csv
+rm -rf tornodes 
 # EOS
 
 

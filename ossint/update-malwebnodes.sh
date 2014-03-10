@@ -2,7 +2,7 @@
 # update-malwebnodes.sh
 # Matthew Ulm
 # 2014-03-05
-
+#
 #
 # DISCLAIMER #1:
 #
@@ -30,140 +30,138 @@
 # touch, echo, wget, cat, wc, grep, sort, uniq, zip, cp, mv, date
 # Let's get started
 # First create some files
-touch working.malweb.csv
-touch working.malwebnodes.log
+mkdir malweb
+cd malweb
+touch working.csv
+touch malwebnodes.log
+echo "We are starting our collection at: $(date)" >> malwebnodes.log
+echo "-----" >> malwebnodes.log
+echo "-----" >> malwebnodes.log
 
 
-echo "We are starting our collection at: $(date)" >> working.malwebnodes.log
-echo "-----" >> working.malwebnodes.log
-echo "-----" >> working.malwebnodes.log
-
-# Let's get the listing from the Malware Domains website
-echo "Getting our first list from the Malware Domains site" >> working.malwebnodes.log
+# Let's getting the listings from our sites. we will gather all of these files for
+# processing further down in the script. If you add more sources to this script, just make sure that
+# the name of the list ends in ".list". This naming convention is required for later parts of the script
+# to process properly, and grab the information that we need for our data.
+echo "Getting our first list from the Malware Domains site" >> malwebnodes.log
+echo "http://www.malwaredomainlist.com/mdl.php?search=&colsearch=IP&quantity=All" >> malwebnodes.log
 wget "http://www.malwaredomainlist.com/mdl.php?search=&colsearch=IP&quantity=All" -O malwaredomains.list
-grep -E -o '(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)' malwaredomains.list >> working.malweb.csv
-wc -l working.malweb.csv >> working.malwebnodes.log
-echo "-----" >> working.malwebnodes.log
-echo "-----" >> working.malwebnodes.log
-
-# This will gather our second list, which is a collection of three other sites.
-# we will still gather from those sites as well, as a precaution, in case they do 
-# not fully overlap with each other.
-# There is a copyright notice included at the end of this file for this list.
+echo "-----" >> malwebnodes.log
 echo "Gathering from Emerging Threats" >>
-wget http://rules.emergingthreats.net/fwrules/emerging-Block-IPs.txt -O emergingthreats.list
-grep -E -o '(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)'  emergingthreats.list >> working.malweb.csv
-wc -l working.malweb.csv >> working.malwebnodes.log
-echo "-----" >> working.malwebnodes.log
-echo "-----" >> working.malwebnodes.log
-
-
-# This is our third list
-echo "Gathering our list from the CI badguy list" >> working.malwebnodes.log
-wget http://www.ciarmy.com/list/ci-badguys.txt -O ci.list
-grep -E -o '(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)'  ci.list >> working.malweb.csv
-wc -l working.malweb.csv >> working.malwebnodes.log
-echo "-----" >> working.malwebnodes.log
-echo "-----" >> working.malwebnodes.log
-
-
-# Our next list
-# this list has mostly domain names, but we can find a few IPs in this list.
-echo "Grabbing a list from siri-urz." >> working.malwebnodes.log
-wget http://vxvault.siri-urz.net/URL_List.php -O siriurz.list
-grep -E -o '(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)' siriurz2.list >> working.malweb.csv
-echo "-----" >> working.malwebnodes.log
-echo "grabbing a second list from thsi site, that does not seem to match 100%" >> working.malwebnodes.log
-# This will grab all URLs, hashes, and IPs on this list for the last 2.5 months
-wget "http://vxvault.siri-urz.net/ViriList.php?s=40&m=500" >> -Osiriurz2.list
-grep -E -o '(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)' siriurz.list >> working.malweb.csv
-wc -l working.malweb.csv >> working.malwebnodes.log
-echo "-----" >> working.malwebnodes.log
-echo "-----" >> working.malwebnodes.log
-
-
-# next list
-echo "Grabbing a listing from the RSS feed at Malware Block List" >> working.malwebnodes.log
+echo "http://rules.emergingthreats.net/fwrules/emerging-Block-IPs.txt" >> malwebnodes.log
+wget "http://rules.emergingthreats.net/fwrules/emerging-Block-IPs.txt" -O emergingthreats.list
+echo "-----" >> malwebnodes.log
+echo "Gathering our list from the CI badguy list" >> malwebnodes.log
+echo "http://www.ciarmy.com/list/ci-badguys.txt" >> malwebnodes.log
+wget "http://www.ciarmy.com/list/ci-badguys.txt" -O ci.list
+echo "-----" >> malwebnodes.log
+echo "Grabbing a list from siri-urz." >> malwebnodes.log
+echo "http://vxvault.siri-urz.net/URL_List.php" >> malwebnodes.log
+wget "http://vxvault.siri-urz.net/URL_List.php" -O siriurz.list
+echo "http://vxvault.siri-urz.net/ViriList.php?s=40&m=500" >> malwebnodes.log
+wget "http://vxvault.siri-urz.net/ViriList.php?s=40&m=500" >> -O siriurz2.list
+echo "-----" >> malwebnodes.log
+echo "Grabbing a listing from the RSS feed at Malware Block List" >> malwebnodes.log
+echo "http://www.malwareblacklist.com/mbl.xml" >> malwebnodes.log
 wget http://www.malwareblacklist.com/mbl.xml -O mblrss.list
-grep -E -o '(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)' mblrss.list >> working.malweb.csv
-wc -l working.malweb.csv >> working.malwebnodes.log
-echo "-----" >> working.malwebnodes.log
-echo "-----" >> working.malwebnodes.log
-
-
-# next set of lists
-# this is a few pages we have to go through in order to get the last few months worth of data.
-# We are going to grab 7 pages in all from this site and sort through them.
+echo "-----" >> malwebnodes.log
+echo "Getting our next set of lists" >> malwebnodes.log
+echo "http://malwaredb.malekal.com/" >> malwebnodes.log
+#
+# This will be a couple of pulls to gather information from the last few months
+# This script will pause in between each pull, so we do not hit the server too hard
+#
 wget "http://malwaredb.malekal.com/" -O mdb0.list
-grep -E -o '(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)' mdb0.list >> working.malweb.csv
+/bin/sleep 15 >> malwebnodes.log
 wget "http://malwaredb.malekal.com/index.php?page=1" -O mdb1.list
-grep -E -o '(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)' mdb1.list >> working.malweb.csv
+/bin/sleep 15 >> malwebnodes.log
 wget "http://malwaredb.malekal.com/index.php?page=2" -O mdb2.list
-grep -E -o '(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)' mdb2.list >> working.malweb.csv
+/bin/sleep 15 >> malwebnodes.log
 wget "http://malwaredb.malekal.com/index.php?page=3" -O mdb3.list
-grep -E -o '(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)' mdb3.list >> working.malweb.csv
+/bin/sleep 15 >> malwebnodes.log
 wget "http://malwaredb.malekal.com/index.php?page=4" -O mdb4.list
-grep -E -o '(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)' mdb4.list >> working.malweb.csv
+/bin/sleep 15 >> malwebnodes.log
 wget "http://malwaredb.malekal.com/index.php?page=5" -O mdb5.list
-grep -E -o '(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)' mdb5.list >> working.malweb.csv
+/bin/sleep 15 >> malwebnodes.log
 wget "http://malwaredb.malekal.com/index.php?page=6" -O mdb6.list
-grep -E -o '(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)' mdb6.list >> working.malweb.csv
-wc -l working.malweb.csv >> working.malwebnodes.log
-echo "-----" >> working.malwebnodes.log
-echo "-----" >> working.malwebnodes.log
-# Need to investigate, but this could be a daily listing of malware
-# http://malwaredb.malekal.com/daily.zip
-
-
-
-# Another larger list
-# not a whole lot of IPs in this list, but certainly a few that make it 
-# worthwhile to download, parse, adn add to our growing collection.
-wget http://cybercrime-tracker.net/all.php -O ccrimetracker.list
-grep -E -o '(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)' ccrimetracker.list >> working.malweb.csv
-wc -l working.malweb.csv >> working.malwebnodes.log
-echo "-----" >> working.malwebnodes.log
-echo "-----" >> working.malwebnodes.log
-
-
-# This is a very short list of IPs from Poland.
-# I think it is only 10 or so IPs that we get from this
-# but it adds 10 r so IPs to this list.
-wget http://www.malware.pl/index.malware -O poland.list
-grep -E -o '(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)' poland.list >> working.malweb.csv
-wc -l working.malweb.csv >> working.malwebnodes.log
-echo "-----" >> working.malwebnodes.log
-echo "-----" >> working.malwebnodes.log
-
-
-# Again another small list of IP addresses
-# for us to parse and add to our working list
-wget http://www.malwareurl.com/ -O malwareurl.list
-grep -E -o '(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)' malwareurl.list >> working.malweb.csv
-wc -l working.malweb.csv >> working.malwebnodes.log
-echo "-----" >> working.malwebnodes.log
-echo "-----" >> working.malwebnodes.log
-# you can register on this site for a personal download link to access
-# the complete database. This link is paired to the user registration, so
-# I will not add it here.
-
-
+echo "-----" >> malwebnodes.log
+echo "Getting the list from CyberCrime Tracker" >> malwebnodes.log
+echo "http://cybercrime-tracker.net/all.php" >> malwebnodes.log
+wget "http://cybercrime-tracker.net/all.php" -O crimetracker.list
+echo "-----" >> malwebnodes.log
+echo "A malware site listing form Poland" >> malwebnodes.log
+echo "http://www.malware.pl/index.malware" >> malwebnodes.log
+wget "http://www.malware.pl/index.malware" -O poland.list
+echo "-----" >> malwebnodes.log
+# you can register on this site for a personal download link to access the complete database. 
+# This link is paired to the user registration.
+echo "Getting the list from Malware URL" >> malwebnodes.log
+echo "http://www.malwareurl.com/" >> malwebnodes.log
+wget "http://www.malwareurl.com/" -O malwareurl.list
+echo "-----" >> malwebnodes.log
 # we are going to grab another listing of sites, and what not,
-# that we will haev to pull a few pages from.
-wget http://malc0de.com/database/
-wget http://malc0de.com/database/?&page=2
-wget http://malc0de.com/database/?&page=3
-wget http://malc0de.com/database/?&page=4
-wget http://malc0de.com/database/?&page=5
-wget http://malc0de.com/database/?&page=6
-wget http://malc0de.com/database/?&page=7
-wget http://malc0de.com/database/?&page=8
-wget http://malc0de.com/database/?&page=9
+# that we will have to pull a few pages from. I am also building in a simple wait mechanism between
+# each pull so that we do not overload the server, and get our IP banned from being able to use this.
+# you can adjust this sleep timer to speed up or slow down the pulls.
+echo "http://malc0de.com/database/" >> malwebnodes.log
+wget "http://malc0de.com/database/" -O malcode1.list
+/bin/sleep 15 >> malwebnodes.log
+wget "http://malc0de.com/database/?&page=2" -O malcode2.list
+/bin/sleep 15 >> malwebnodes.log
+wget "http://malc0de.com/database/?&page=3" -O malcode3.list
+/bin/sleep 15 >> malwebnodes.log
+wget "http://malc0de.com/database/?&page=4" -O malcode4.list
+/bin/sleep 15 >> malwebnodes.log
+wget "http://malc0de.com/database/?&page=5" -O malcode5.list
+/bin/sleep 15 >> malwebnodes.log
+wget "http://malc0de.com/database/?&page=6" -O malcode6.list
+/bin/sleep 15 >> malwebnodes.log
+wget "http://malc0de.com/database/?&page=7" -O malcode7.list
+/bin/sleep 15 >> malwebnodes.log
+wget "http://malc0de.com/database/?&page=8" -O malcode8.list
+/bin/sleep 15 >> malwebnodes.log
+wget "http://malc0de.com/database/?&page=9" -O malcode9.list
+echo "-----" >> malwebnodes.log
+# End of List download Section
+echo "---------------" >> malwebnodes.log
+echo "---------------" >> malwebnodes.log
+
+
+# Now lets start gathering all of our lists and iterating through all of them using while, so we can
+# only pull out the IP addresses from these files. Lets get the a list of the files first, create and array that
+# is that long, and then populate the array with each list file. Once we have done that, let's validate the
+# addresses, and make sure we do not add any RFC 3330 IP ranges to our working list.
+ls *.list >> listoflists.txt
+while read line
+do
+	echo "$line" >> malwebnodes.log
+	grep -E -o '(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)' $line >> working.csv
+	wc -l working.csv >> malwebnodes.log
+	echo "-----" >> malwebnodes.log
+done < listoflists.txt
+
+
+# Lets start our cleaning and sorting process to finish out our script, and close
+# this portion of our information gathering data collection.
+echo "---------------" >> malwebnodes.log
+echo "---------------" >> malwebnodes.log
+echo "Sorting and de-duplicating now." >> malwebnodes.log
+zip malwarelists.zip *.list
+rm -rf *.list
+sort working.csv >> sorted.csv
+uniq sorted.csv >> malware.csv
+cp malware.csv ../
+zip malwarecsv.zip *.csv
+mv malwebnodes.log ../
+cd ../
+zip malwaregather.zip malweb/*
+mv malwarelists.zip malwarelists_$(date +%F).zip
+mv malwarecsv.zip malwarecsv_$(date +%F).zip
+mv malwebnodes.log malwarenodes_$(date +%F).log
+
+
 
 # EOS
-
-
-
 #*************************************************************
 #
 #  Copyright (c) 2003-2013, Emerging Threats
@@ -187,5 +185,4 @@ wget http://malc0de.com/database/?&page=9
 #  WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE 
 #  USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
 #
-
 # EOF
