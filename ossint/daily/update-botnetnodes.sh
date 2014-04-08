@@ -59,9 +59,9 @@ cp botnets.csv ../
 cp botnetnodes.log ../
 cd ../
 zip bots.zip botnetdir/*
-mv bots.zip bots_$(date +%F).zip
-mv botnets.csv bots_$(date +%F).csv
-mv botnetnodes.log bots_$(date +%F).log
+mv bots.zip bots_daily_$(date +%F).zip
+mv botnets.csv bots_daily_$(date +%F).csv
+mv botnetnodes.log bots_daily_$(date +%F).log
 rm -rf botnetdir
 
 # EOS
