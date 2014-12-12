@@ -1,0 +1,15 @@
+Programs Installed:
+	Dependency Walker
+	PE Explorer
+	Sumatra
+	Burp
+	Java
+	Firefox
+	Chrome
+	windbg-x86
+	MinGW
+	Wireshark
+	Windirstat
+	Python
+	Volatility
+	
