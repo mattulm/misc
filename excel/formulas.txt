@@ -1,0 +1,8 @@
+Compund interest
+=M5*(1+M6/M7)^(M7*M8)
+
+Compund INterest ONe
+=FV(C8,C9,K2,C2)
+=FV(C8,C10,K3,C3)
+=FV(C8,C11,K4,C4)
+=FV(C8,C12,K5,C5)
