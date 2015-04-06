@@ -1,0 +1,18 @@
+apt-get update && apt-get upgrade && apt-get dist-upgrade
+
+# Need to find the Jython and JRuby installatio steps for this.
+# Want some plugins available for burp.
+
+
+# This is for hackpad.
+bundle install
+
+
+# For Easy Wins
+cd /tools/web/easywins
+gem install easywins
+
+
+
+# DOM XSS Scanner
+easy_install Beautiful Soup
