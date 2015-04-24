@@ -12,6 +12,8 @@ Programs Installed:
 	Windirstat
 	Python
 	Volatility
+	HTTPrint
+	
 	
 	Foundstone:
 		SiteDigger
