@@ -1,0 +1,52 @@
+Bintext: 
+	A small, very fast and powerful text extractor. http://www.mcafee.com/us/downloads/free-tools/bintext.aspx
+Burp Suite: 
+	Decode malware SSL. http://portswigger.net/burp/download.HTML
+CFF Explorer Suite: 
+	a freeware suite of tools including a PE editor called CFF Explorer and a process viewer http://www.ntcore.com/exsuite.php
+Dependency Walker: 
+	Dependency Walker is a free utility that sans any 32 bit or 64 bit Windows module (exe, dll, ocx, sys, etc) http://www.dependencywalker.com/
+Fiddler: 
+	Web debugging proxy. http://www.telerik.com/fiddler
+FileAlyzer: 
+	Basic analysis of files shows properties and contents in hexdump http://www.safer-networking.org/products/filealyzer/
+IDA Pro free: 
+	https://www.hex-rays.com/products/ida/support/download_freeware.shtml
+Immunity Debugger: 
+	http://www.immunityinc.com/products-immdbg.shtml
+NCAT: 
+	A newer version of netcat that is provided in the NMAP package can be used a connection listener. http://nmap.org/download.html
+Ollydbg: 
+	http://www.ollydbg.de/
+PEview: 
+	provides a quick and easy way to view the structure and content of 32 bit PE. http://wjradburn.com/software/
+Regshot: 
+	Takes a snapshot of registry before running samples. http://sourceforge.net/projects/regshot/
+Stud_PE: 
+	View PE basic Header info, PE scanner and more. http://www.cgsoftlabs.ro/studpe.html
+Windows File Analyzer: 
+	Decodes and analyzes some special files used by Windows. http://www.mitec.cz/wfa.html
+Wireshark: 
+	Network traffic capture. http://www.wireshark.org/download.html
+Volatility Stand alone
+Python 2.7
+Mandiant Redline
+
+	
+Firefox
+Chrome
+
+
+
+Older versions of:
+	Adobe Reader
+	Java
+	
+	Dependency Walker
+	PE Explorer
+	Sumatra
+	windbg-x86
+	MinGW
+	Windirstat
+	PE Studio
+	PEiD

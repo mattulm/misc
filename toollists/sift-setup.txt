@@ -1,0 +1,29 @@
+sudo apt-get update
+sudo apt-get upgrade
+
+
+# TOols i like to have
+sudo apt-get install ssh vim
+
+# for Clam AV
+sudo apt-get install clamav clamav-freshclam
+sudo freshclam
+sudo Clamscan
+
+# for Yara
+sudo apt-get install libpcre3 libpcre3-dev
+sudo apt-get install yara
+
+sigtool –u /var/lib/clamav/main.cvd
+python clamav_to_yara.py -f main.ndb -o clamav.yara
+
+
+
+# Python Reg Parse
+wget https://bootstrap.pypa.io/ez_setup.py -O - | sudo python
+sudo pip install python-registry
+sudo pip install jinja2
+wget https://github.com/sysforensics/python-regparse/archive/master.zip
+unzip master.zip
+
+

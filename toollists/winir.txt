@@ -13,3 +13,10 @@ Programs Installed:
 	Python
 	Volatility
 	
+	Foundstone:
+		SiteDigger
+
+	SensePosts
+		Wikto
+
+	
