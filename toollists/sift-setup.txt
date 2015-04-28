@@ -28,4 +28,4 @@ sudo pip install jinja2
 wget https://github.com/sysforensics/python-regparse/archive/master.zip
 unzip master.zip
 
-
+wget https://bitbucket.org/decalage/oletools/downloads/oletools-0.09.tar.gz 
