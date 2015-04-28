@@ -17,6 +17,8 @@ sudo apt-get install yara
 sigtool –u /var/lib/clamav/main.cvd
 python clamav_to_yara.py -f main.ndb -o clamav.yara
 
+# for Didier Stevens Tools
+sudo easy_install potser
 
 
 # Python Reg Parse
