@@ -13,7 +13,7 @@ Programs Installed:
 	Python
 	Volatility
 	HTTPrint
-	
+	Grendel-Scan
 	
 	
 	Foundstone:
