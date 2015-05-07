@@ -29,3 +29,9 @@ wget https://github.com/sysforensics/python-regparse/archive/master.zip
 unzip master.zip
 
 wget https://bitbucket.org/decalage/oletools/downloads/oletools-0.09.tar.gz 
+
+
+# Apache-Scalp
+wget https://apache-scalp.googlecode.com/files/scalp-0.4.py
+
+

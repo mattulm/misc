@@ -5,6 +5,8 @@ Programs Installed:
 	Burp
 	Java
 	Firefox
+		Addons: Gresemonkey, Tamper Data, Firebug
+		Greasemonkey addons:	PostInterpreter, XSS Assistant
 	Chrome
 	windbg-x86
 	MinGW
