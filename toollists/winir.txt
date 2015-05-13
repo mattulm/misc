@@ -1,29 +1,26 @@
 Programs Installed:
 	Dependency Walker
 	PE Explorer
-	Sumatra
-	Burp
+	Burp & Zap
 	Java
-	Firefox
-		Addons: Gresemonkey, Tamper Data, Firebug
-		Greasemonkey addons:	PostInterpreter, XSS Assistant
-	Chrome
+	RatProxy
 	windbg-x86
 	MinGW
 	Wireshark
-	Windirstat
-	Python
 	Volatility
 	HTTPrint
 	Absinthe
-	
-	
 	Foundstone:
-		SiteDigger
-		Fscan
-		
-
+		SiteDigger, Fscan, WSDigger
+	Web Service Studio
 	SensePosts
 		Wikto
-
 	
+	Chrome
+	CCleaner
+	Firefox
+		Addons: Gresemonkey, Tamper Data, Firebug
+		Greasemonkey addons:	PostInterpreter, XSS Assistant
+	Python
+	Sumatra
+	Windirstat
