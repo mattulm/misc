@@ -32,6 +32,7 @@ Volatility Stand alone
 Python 2.7
 Mandiant Redline
 http://decalage.info/python/oletools
+JD (Java Decompiler)
 
 	
 Firefox

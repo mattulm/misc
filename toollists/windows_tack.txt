@@ -11,6 +11,8 @@ Programs Installed:
 	HTTPrint
 	Absinthe
 	SWFScan
+	JD (Java Decompiler)
+	
 	Foundstone:
 		SiteDigger, Fscan, WSDigger
 	Web Service Studio
@@ -22,6 +24,7 @@ Programs Installed:
 	Firefox
 		Addons: Gresemonkey, Tamper Data, Firebug
 		Greasemonkey addons:	PostInterpreter, XSS Assistant
+		
 	Python
 	Sumatra
 	Windirstat
