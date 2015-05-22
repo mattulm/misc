@@ -1,0 +1,13 @@
+%commonprogramfiles%
+%allusersprofile%
+%appdata%
+%userprofile%
+%tmp%
+C:\Windows\SoftwareDistribution\*
+%CommonAppData%\*
+%ProgramData%\*
+C:\ProgramData\*
+%LocalAppData%\*
+%AppData%\*
+C:\Users\*\AppData\Local\Temp\*
+%TEMP%\*

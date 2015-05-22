@@ -51,3 +51,12 @@ Older versions of:
 	Windirstat
 	PE Studio
 	PEiD
+	
+	OfficeMalScanner - http://www.reconstructer.org/code/OfficeMalScanner.zip
+	Offvis - http://go.microsoft.com/fwlink/?LinkId=158791
+	pyOLEScanner.py
+	ExeFilter - http://www.decalage.info/exefilter
+	
+	
+	
+	

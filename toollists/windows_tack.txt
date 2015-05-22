@@ -10,6 +10,7 @@ Programs Installed:
 	Volatility
 	HTTPrint
 	Absinthe
+	SWFScan
 	Foundstone:
 		SiteDigger, Fscan, WSDigger
 	Web Service Studio
