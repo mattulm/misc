@@ -33,12 +33,11 @@ Python 2.7
 Mandiant Redline
 http://decalage.info/python/oletools
 JD (Java Decompiler)
+PEstudio - https://www.winitor.com/
+Exeinfo PE - http://exeinfo.atwebpages.com/
 
-	
 Firefox
 Chrome
-
-
 
 Older versions of:
 	Adobe Reader
