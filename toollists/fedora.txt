@@ -7,10 +7,10 @@ yum update -y
 yum -y install dsniff hping3 nc6 nc ncrack ngrep nmap nmap-frontend p0f sing scanssh scapy socat tcpdump unicornscan wireshark-gnome xprobe2 nbtscan tcpxtract firewalk hunt dnsenum iftop argus ettercap ettercap-gtk packETH iptraf pcapdiff etherape lynis netsniff-ng tcpjunk ssldump yersinia net-snmp openvas-client openvas-scanner
  
 #Forensics
-yum -d install ddrescue gparted hexedit testdisk foremost sectool-gui scanmem sleuthkit unhide examiner dc3dd afftools srm firstaidkit-plugin-all ntfs-3g ntfsprogs yara volatility
+yum -d install ddrescue gparted hexedit testdisk foremost sectool-gui scanmem sleuthkit unhide examiner dc3dd afftools srm firstaidkit-plugin-all ntfs-3g ntfsprogs yara volatility clamav ssdeep 
  
 #Web Application Testing
-yum -d install httping nikto ratproxy lbd skipfish
+yum -d install httping nikto ratproxy lbd skipfish w3af wafw00f wpscan plecost BlindElephant owaspZap
  
 #Wireless
 yum -d install aircrack-ng airsnort kismet weplab wavemon
