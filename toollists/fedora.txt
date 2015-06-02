@@ -1,28 +1,37 @@
-	#!/bin/sh
+#!/bin/sh
+
+# First things First
+yum update -y
  
 #Reconnaissance
-yum install dsniff hping3 nc6 nc ncrack ngrep nmap nmap-frontend p0f sing scanssh scapy socat tcpdump unicornscan wireshark-gnome xprobe2 nbtscan tcpxtract firewalk hunt dnsenum iftop argus ettercap ettercap-gtk packETH iptraf pcapdiff etherape lynis netsniff-ng tcpjunk ssldump yersinia net-snmp openvas-client openvas-scanner
+yum -y install dsniff hping3 nc6 nc ncrack ngrep nmap nmap-frontend p0f sing scanssh scapy socat tcpdump unicornscan wireshark-gnome xprobe2 nbtscan tcpxtract firewalk hunt dnsenum iftop argus ettercap ettercap-gtk packETH iptraf pcapdiff etherape lynis netsniff-ng tcpjunk ssldump yersinia net-snmp openvas-client openvas-scanner
  
 #Forensics
-yum install ddrescue gparted hexedit testdisk foremost sectool-gui scanmem sleuthkit unhide examiner dc3dd afftools srm firstaidkit-plugin-all ntfs-3g ntfsprogs
+yum -d install ddrescue gparted hexedit testdisk foremost sectool-gui scanmem sleuthkit unhide examiner dc3dd afftools srm firstaidkit-plugin-all ntfs-3g ntfsprogs yara volatility
  
 #Web Application Testing
-yum install httping nikto ratproxy lbd skipfish
+yum -d install httping nikto ratproxy lbd skipfish
  
 #Wireless
-yum install aircrack-ng airsnort kismet weplab wavemon
+yum -d install aircrack-ng airsnort kismet weplab wavemon
  
 #Code Analysis
-yum install splint pscan flawfinder rats
+yum -d install splint pscan flawfinder rats
  
 #Intrusion Detection
-yum install chkrootkit aide labrea honeyd pads nebula rkhunter
+yum -d install chkrootkit aide labrea honeyd pads nebula rkhunter
  
 #Password Tools
-yum install john ophcrack medusa
+yum -d install john ophcrack medusa
  
 #httpd
-yum install httpd ruby mod_perl mod_python MySQL-python php php-pear php-mysql mod_security openssl
+yum -d install httpd ruby mod_perl mod_python MySQL-python php php-pear php-mysql mod_security openssl
  
 #Install Menus
-yum install security-menus
+yum -d install security-menus
+
+
+#
+# For Git hub related content
+easy_install python-magic
+yum 

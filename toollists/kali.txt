@@ -1,6 +1,6 @@
 apt-get update && apt-get upgrade && apt-get dist-upgrade
 
-# Need to find the Jython and JRuby installatio steps for this.
+# Need to find the Jython and JRuby installation steps for this.
 # Want some plugins available for burp.
 
 
@@ -17,5 +17,12 @@ gem install easywins
 # DOM XSS Scanner
 easy_install Beautiful Soup
 
+
+
+### Known Good
+#
+# For ikeforce
+easy_install pyip
+easy_install crypto
 
 
