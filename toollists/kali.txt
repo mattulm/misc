@@ -26,3 +26,10 @@ easy_install pyip
 easy_install crypto
 
 
+
+
+yum install ruby
+gem install fastercsv
+gem install trollop
+
+

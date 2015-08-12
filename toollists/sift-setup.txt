@@ -2,8 +2,12 @@ sudo apt-get update
 sudo apt-get upgrade
 
 
-# TOols i like to have
+# Tools i like to have
 sudo apt-get install ssh vim
+update-rc.d ssh defaults
+cd /home/sansforensics
+git clone https://github.com/mattulm/volgui.git volgui
+
 
 # for Clam AV
 sudo apt-get install clamav clamav-freshclam
@@ -13,13 +17,26 @@ sudo Clamscan
 # for Yara
 sudo apt-get install libpcre3 libpcre3-dev
 sudo apt-get install libjansson-dev libmagic-dev
-# sudo apt-get install yara
+sudo apt-get install yara
 
-sigtool –u /var/lib/clamav/main.cvd
-python clamav_to_yara.py -f main.ndb -o clamav.yara
+
+sudo sigtool –u /var/lib/clamav/main.cvd
+sudo python /home/sansforensics/volgui/tools/clamav_to_yara.py -f main.ndb -o clamav.yara
+
 
 # for Didier Stevens Tools
 sudo easy_install potser
+
+
+
+# For LOKI IOC Scanner
+# prerequisites
+sudo pip install scandir
+
+#software
+cd /home/sansforensics
+git clone https://github.com/Neo23x0/Loki.git
+
 
 
 # Python Reg Parse
