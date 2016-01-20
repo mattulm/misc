@@ -1,0 +1,6 @@
+remove websploit
+remove vega
+remove uniscan-ui
+
+remove OpenVAS
+remove all of the greenbone stuff
