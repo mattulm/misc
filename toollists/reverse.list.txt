@@ -1,0 +1,7 @@
+cd /tools/gdb
+git clone https://github.com/hugsy/gef.git gef
+
+cd /tools/binary
+git clone https://github.com/guelfoweb/peframe.git peframe
+sudo apt-get install binwalk python-lzma
+git clone https://github.com/google/binnavi.git binnavi

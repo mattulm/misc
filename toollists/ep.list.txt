@@ -1,0 +1,53 @@
+
+
+
+
+
+cd /tools/exploit
+git clone https://github.com/JonathanSalwan/ROPgadget.git ropgadget
+git clone https://github.com/hugsy/gef.git gef
+git clone https://github.com/longld/peda.git peda
+git clone https://github.com/rapid7/metasploit-framework.git msf
+git clone https://github.com/Veil-Framework/Veil-Evasion.git veil
+git clone https://github.com/nccgroup/metasploitavevasion.git msfEvde
+git clone https://github.com/nccgroup/autopwn.git autopwn
+git clone https://github.com/trustedsec/social-engineer-toolkit.git set
+
+
+
+cd /tools/suggestions
+git clone https://github.com/Barry-malone/Linux_Exploit_Suggester.pl.git linux-kernel
+git clone https://github.com/GDSSecurity/Windows-Exploit-Suggester.git windows-suggest
+git clone https://github.com/raffaele-forte/climber.git linux-climber
+
+
+
+cd /tools/net
+git clone https://github.com/jh00nbr/Routerhunter-2.0.git routerhunter
+git clone https://github.com/guelfoweb/gethost.git gethost
+git clone https://github.com/robertdavidgraham/masscan.git massscan
+git clone https://github.com/SpiderLabs/Responder.git responder
+git clone https://github.com/nccgroup/ssh_user_enum.git sshEnumUser
+
+
+cd pass
+git clone https://github.com/guelfoweb/passgen.git passgen
+
+
+cd /tools/web
+git clone git clone https://github.com/rezasp/vbscan.git vbscan
+git clone https://github.com/guelfoweb/wpbrute.git wpbrute
+git clone https://github.com/droope/droopescan.git drooperscan
+git clone https://github.com/urbanadventurer/WhatWeb.git whatweb
+git clone https://github.com/wpscanteam/wpscan.git wpscan
+git clone https://github.com/droope/ldap-brute.git ldap-brute
+git clone https://github.com/nccgroup/creep-web-app-scanner.git creep
+git clone https://github.com/nccgroup/vbrute vbrute
+git clone https://github.com/maurosoria/dirsearch.git dirsearch
+git clone https://github.com/GDSSecurity/SQLBrute.git sql-brute
+
+
+
+
+
+

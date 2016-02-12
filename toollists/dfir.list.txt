@@ -1,0 +1,8 @@
+
+cd /tools/forensics
+git clone https://github.com/volatilityfoundation/volatility.git volatility
+
+cd /tools/binary
+git clone https://github.com/guelfoweb/peframe.git peframe
+sudo apt-get install binwalk python-lzma
+
