@@ -1,0 +1,4 @@
+sed -i -e 's/;/, /g'
+find -name "* *" -type f | rename 's/ /_/g'
+
+
